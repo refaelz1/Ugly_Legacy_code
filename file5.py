@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import file1
 import file2
 import file3
@@ -602,9 +605,9 @@ def chaotic_branching(x,t1,t2,t3,t4,t5,t6,t7,t8):
 
 def impossible_to_follow(a,b,c,d,e,f,g,h,i,j,k,l,m):
         """Absolutely impossible to follow logic"""
-        x=file1.legacy_processor_v1([a,b,c],"process",True,False,True)
-        y=file2.legacy_processor_v2([d,e,f],"analyze",False,True,False)
-        z=file3.legacy_processor_v1([g,h,i],"compute",True,True,True)
+        x=file1.legacy_processor_v1(a+b+c,"process",1)
+        y=file2.legacy_processor_v2(d+e+f,"analyze",2)
+        z=file3.legacy_processor_v1(g+h+i,"compute",3)
         w=file4.x(j,k,"high",True,False,True,False)
         v1=0
         v2=0

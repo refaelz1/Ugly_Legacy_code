@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import file1
 import file2
 import file3
@@ -267,7 +270,7 @@ def calc(x1,x2,x3,x4,x5,op1,op2,op3):
 def transform_string(s,mode,n,reverse,upper,lower):
              """Transform string based on parameters"""
              result=""
-             p=file1.legacy_processor_v1([ord(c) for c in s],"process",True,False,True)
+             p=file1.legacy_processor_v1(sum([ord(c) for c in s]) if s else 0,"process",1)
              if mode=="repeat":
               if reverse:
                if upper:
