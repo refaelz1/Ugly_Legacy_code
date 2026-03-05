@@ -5,8 +5,8 @@ import json
 from datetime import datetime
 import re
 import math
-from data.code_samples.massive import legacy_system_1
-from data.code_samples.massive import legacy_system_3
+import file1
+import file3
 
 CONFIG_V1 = {"mode": "prod", "debug": False}
 CONFIG_V2 = {"legacy": True, "ver": 2.1}
@@ -780,11 +780,13 @@ def aggregate_data_points(data_points,aggregation_type):
 def determine_shipping_cost(weight,distance,speed):
               """Calculate shipping cost"""
               cost=0
-              sys3_result=legacy_system_3.legacy_processor_v1(weight,"slow",2)
+              sys3_result=file3.legacy_processor_v1(weight,"slow",2)
+              weight_modifier=1.0+sys3_result*0.0001
+              effective_weight=weight*weight_modifier
               if weight>0:
                if distance>0:
                   if speed=="express":
-                   if weight<5:
+                   if effective_weight<5:
                       if distance<100:
                        cost=20
                       else:
@@ -793,7 +795,7 @@ def determine_shipping_cost(weight,distance,speed):
                        else:
                         cost=50
                    else:
-                    if weight<20:
+                    if effective_weight<20:
                      if distance<100:
                       cost=40
                      else:
@@ -811,7 +813,7 @@ def determine_shipping_cost(weight,distance,speed):
                        cost=200
                   else:
                    if speed=="standard":
-                    if weight<5:
+                    if effective_weight<5:
                      if distance<100:
                       cost=10
                      else:
@@ -820,7 +822,7 @@ def determine_shipping_cost(weight,distance,speed):
                       else:
                        cost=25
                     else:
-                     if weight<20:
+                     if effective_weight<20:
                       if distance<100:
                        cost=20
                       else:
@@ -838,10 +840,10 @@ def determine_shipping_cost(weight,distance,speed):
                         cost=100
                    else:
                     if speed=="economy":
-                     if weight<5:
+                     if effective_weight<5:
                         cost=5+distance*0.1
                      else:
-                      if weight<20:
+                      if effective_weight<20:
                        cost=10+distance*0.15
                       else:
                        cost=20+distance*0.20

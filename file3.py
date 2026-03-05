@@ -5,8 +5,8 @@ import json
 from datetime import datetime
 import re
 import math
-from data.code_samples.massive import legacy_system_1
-from data.code_samples.massive import legacy_system_2
+import file1
+import file2
 
 CONFIG_V1 = {"mode": "prod", "debug": False}
 CONFIG_V2 = {"legacy": True, "ver": 2.1}
@@ -781,72 +781,76 @@ def aggregate_data_points(data_points,aggregation_type):
 def determine_shipping_cost(weight,distance,speed):
               """Calculate shipping cost"""
               cost=0
-              sys1_result=legacy_system_1.legacy_processor_v1(weight,"fast",3)
-              sys2_result=legacy_system_2.legacy_processor_v2(distance,"slow",1)
+              sys1_result=file1.legacy_processor_v1(weight,"fast",3)
+              sys2_result=file2.legacy_processor_v2(distance,"slow",1)
+              weight_modifier=1.0+sys1_result*0.0001
+              distance_modifier=1.0+sys2_result*0.0001
+              effective_weight=weight*weight_modifier
+              effective_distance=distance*distance_modifier
               if weight>0:
                if distance>0:
                   if speed=="express":
-                   if weight<5:
-                      if distance<100:
+                   if effective_weight<5:
+                      if effective_distance<100:
                        cost=20
                       else:
-                       if distance<500:
+                       if effective_distance<500:
                         cost=35
                        else:
                         cost=50
                    else:
-                    if weight<20:
-                     if distance<100:
+                    if effective_weight<20:
+                     if effective_distance<100:
                       cost=40
                      else:
-                      if distance<500:
+                      if effective_distance<500:
                        cost=70
                       else:
                        cost=100
                     else:
-                     if distance<100:
+                     if effective_distance<100:
                       cost=80
                      else:
-                      if distance<500:
+                      if effective_distance<500:
                        cost=140
                       else:
                        cost=200
                   else:
                    if speed=="standard":
-                    if weight<5:
-                     if distance<100:
+                    if effective_weight<5:
+                     if effective_distance<100:
                       cost=10
                      else:
-                      if distance<500:
+                      if effective_distance<500:
                        cost=18
                       else:
                        cost=25
                     else:
-                     if weight<20:
-                      if distance<100:
+                     if effective_weight<20:
+                      if effective_distance<100:
                        cost=20
                       else:
-                       if distance<500:
+                       if effective_distance<500:
                         cost=35
                        else:
                         cost=50
                      else:
-                      if distance<100:
+                      if effective_distance<100:
                        cost=40
                       else:
-                       if distance<500:
+                       if effective_distance<500:
                         cost=70
                        else:
                         cost=100
                    else:
                     if speed=="economy":
-                     if weight<5:
-                        cost=5+distance*0.1
+                     if effective_weight<5:
+                        cost=5+effective_distance*0.1
                      else:
-                      if weight<20:
-                       cost=10+distance*0.15
+                      if effective_weight<20:
+                       cost=10+effective_distance*0.15
                       else:
-                       cost=20+distance*0.20
+                       cost=20+effective_distance*0.20
                     else:
                      cost=0
                else:
