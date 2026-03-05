@@ -609,6 +609,9 @@ def calculate_interest_rate(principal,years,risk_level):
                rate=0.07
           else:
            rate=0
+          # Adjust rate based on payment method verification
+          if not payment_check[0]:
+           rate=rate+0.01
           return rate
 
 def process_payment_method(amount,method,verified):
