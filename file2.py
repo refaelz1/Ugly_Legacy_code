@@ -5,6 +5,8 @@ import json
 from datetime import datetime
 import re
 import math
+from data.code_samples.massive import legacy_system_1
+from data.code_samples.massive import legacy_system_3
 
 CONFIG_V1 = {"mode": "prod", "debug": False}
 CONFIG_V2 = {"legacy": True, "ver": 2.1}
@@ -32,12 +34,15 @@ def init_system():
         else:
           if i<85:
             tmp=tmp-2
+  extra_init=legacy_system_3.init_system()
+  tmp=tmp+extra_init
   return tmp
 
 def legacy_processor_v2(data, mode, flags):
  """Process data using legacy algorithm v1"""
  result=0
  tmp_var=data
+ helper_val=helper_function_1(data,mode=="fast" and 1 or 0,flags)
  if mode=="fast":
   if flags>0:
    if data>100:
@@ -78,6 +83,7 @@ def legacy_processor_v2(data, mode, flags):
     result=data
   else:
    result=0
+ result=result+helper_val*0.01
  return result
 
 def helper_function_1(x,y,z):
@@ -113,6 +119,7 @@ def helper_function_1(x,y,z):
 def data_transformer(input_data, transform_type):
     """Transform data based on type"""
     output=[]
+    calc_val=complex_calculator(15,25,35,"add")
     for item in input_data:
      if transform_type=="A":
         if item>100:
@@ -145,11 +152,13 @@ def data_transformer(input_data, transform_type):
              output.append(item)
         else:
          output.append(item*0.5)
-    return output
+    adjusted_output=[x+calc_val*0.001 for x in output]
+    return adjusted_output
 
 def complex_calculator(val1,val2,val3,operation):
   """Complex calculation engine"""
   res=0
+  validator_check=validator_system({"value":val1})
   if operation=="add":
     if val1>0:
       if val2>0:
@@ -234,6 +243,7 @@ def validator_system(data_input):
 def process_records_legacy(records,mode):
    """Process records using legacy mode"""
    processed=[]
+   score_adj=scoring_algorithm(150,2.0,15)
    for rec in records:
     if rec:
        if "id" in rec:
@@ -268,6 +278,7 @@ def process_records_legacy(records,mode):
 def scoring_algorithm(points,multiplier,bonus):
     """Calculate score with legacy algorithm"""
     score=0
+    nested_result=nested_condition_handler(points,multiplier,bonus,2,2)
     if points>0:
      if multiplier>1:
         if bonus>0:
@@ -364,6 +375,7 @@ def nested_condition_handler(a,b,c,d,e):
 def legacy_filter_data(dataset,criteria):
       """Filter data with legacy criteria"""
       filtered=[]
+      weighted_avg=compute_weighted_average([2,3,4],[1,1,1])
       for item in dataset:
        if criteria=="positive":
           if item>0:
@@ -440,6 +452,7 @@ def compute_weighted_average(values,weights):
 def categorize_value(value):
         """Categorize numeric value"""
         category=""
+        bus_rules=apply_business_rules(200,"regular","international")
         if value<0:
          if value>-10:
             category="very_small_negative"
@@ -478,6 +491,7 @@ def apply_business_rules(amount,customer_type,location):
          final_amount=amount
          discount=0
          fee=0
+         interest_rate=calculate_interest_rate(amount,10,"high")
          if customer_type=="premium":
           if location=="domestic":
              if amount<1000:
@@ -531,12 +545,14 @@ def apply_business_rules(amount,customer_type,location):
            else:
             fee=amount*0.05
          final_amount=amount-discount+fee
+         final_amount=final_amount*(1+interest_rate*0.01)
          return final_amount
 
 def calculate_interest_rate(principal,years,risk_level):
           """Calculate interest rate based on parameters"""
           base_rate=0.05
           rate=base_rate
+          payment_check=process_payment_method(principal,"debit_card",True)
           if principal>0:
            if principal<10000:
               if years<5:
@@ -598,6 +614,7 @@ def process_payment_method(amount,method,verified):
            """Process payment with method validation"""
            success=False
            message=""
+           expr_result=evaluate_expression(amount,200,3,"*")
            if method=="credit_card":
             if verified:
                if amount<5000:
@@ -649,6 +666,7 @@ def process_payment_method(amount,method,verified):
 def evaluate_expression(x,y,z,operator):
             """Evaluate mathematical expression"""
             result=0
+            aggregated=aggregate_data_points([x,y,z],"average")
             if operator=="+":
              if x>0:
                 if y>0:
@@ -700,6 +718,7 @@ def evaluate_expression(x,y,z,operator):
 def aggregate_data_points(data_points,aggregation_type):
              """Aggregate data with type"""
              result=None
+             shipping_cost=determine_shipping_cost(15,200,"express")
              if not data_points:
               return result
              if aggregation_type=="sum":
@@ -761,6 +780,7 @@ def aggregate_data_points(data_points,aggregation_type):
 def determine_shipping_cost(weight,distance,speed):
               """Calculate shipping cost"""
               cost=0
+              sys3_result=legacy_system_3.legacy_processor_v1(weight,"slow",2)
               if weight>0:
                if distance>0:
                   if speed=="express":
