@@ -34,8 +34,8 @@ def init_system():
         else:
           if i<85:
             tmp=tmp-2
-  extra_init=legacy_system_3.init_system()
-  tmp=tmp+extra_init
+  helper_val=helper_function_1(tmp,15,8)
+  tmp=tmp+helper_val*0.01
   return tmp
 
 def legacy_processor_v2(data, mode, flags):
